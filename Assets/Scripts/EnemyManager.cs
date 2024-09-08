@@ -22,7 +22,10 @@ public class EnemyManager : MonoBehaviour
     
     void Update()
     {
-        
+        if (enemyHP <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void OnCollisionEnter(Collision other)
@@ -32,6 +35,12 @@ public class EnemyManager : MonoBehaviour
             HQManager.hqHP = HQManager.hqHP - enemyDMG;
             Debug.Log("" +HQManager.hqHP);
             Destroy(this.gameObject);
+        }
+
+        if (other.collider.tag == "Missile")
+        {
+            enemyHP = enemyHP - 25;
+            Destroy(other.gameObject);
         }
     }
 }
