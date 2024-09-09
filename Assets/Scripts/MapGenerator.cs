@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = System.Random;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class MapGenerator : MonoBehaviour
     };
     public DrawMode drawMode;
 
-    private const int mapChunkSize = 241;
+    public static readonly int mapChunkSize = 241;
     [Range(0,6)]
     public int levelOfDetail;
     public float noiseScale;
@@ -35,7 +37,21 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
+    public float[,] noiseMap;
+    private Color[] colourMap;
     private float[,] falloffMap;
+
+    public GameObject meshGameObject;
+
+    private void Start()
+    {
+        //Makes seed between -2,147,483,648 and 2,147,483,647:
+        Random randNum = new Random();
+        seed = randNum.Next();
+        
+        //Generates map and mesh:
+        GenerateMap();
+    }
 
     private void Awake()
     {
@@ -44,9 +60,9 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
-        Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
+        colourMap = new Color[mapChunkSize * mapChunkSize];
         for (int y = 0; y < mapChunkSize; y++)
         {
             for (int x = 0; x < mapChunkSize; x++)
@@ -68,20 +84,64 @@ public class MapGenerator : MonoBehaviour
         }
 
         MapDisplay display = FindObjectOfType<MapDisplay> ();
+
         if (drawMode == DrawMode.NoiseMap)
         {
             display.DrawTexture (TextureGenerator.TextureFromHeightMap (noiseMap));
-        } else if (drawMode == DrawMode.ColourMap)
+        }
+        else if (drawMode == DrawMode.ColourMap)
         {
             display.DrawTexture (TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
-        } else if (drawMode == DrawMode.Mesh)
+        }
+        else if (drawMode == DrawMode.Mesh)
         {
+            // Generate the terrain mesh
+            MeshData meshData = MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail);
+            Mesh terrainMesh = meshData.CreateMesh();
+
+            // Update the MeshFilter and MeshRenderer of the "Mesh" game object
+            MeshFilter meshFilter = meshGameObject.GetComponent<MeshFilter>();
+            if (meshFilter == null)
+            {
+                meshFilter = meshGameObject.AddComponent<MeshFilter>();
+            }
+            meshFilter.mesh = terrainMesh;
+
+            MeshRenderer meshRenderer = meshGameObject.GetComponent<MeshRenderer>();
+            if (meshRenderer == null)
+            {
+                meshRenderer = meshGameObject.AddComponent<MeshRenderer>();
+            }
+            meshRenderer.sharedMaterial.mainTexture = TextureGenerator.TextureFromColourMap(colourMap, mapChunkSize, mapChunkSize);
+
+            // Add or update the MeshCollider
+            MeshCollider meshCollider = meshGameObject.GetComponent<MeshCollider>();
+            if (meshCollider == null)
+            {
+                meshCollider = meshGameObject.AddComponent<MeshCollider>();
+            }
+            meshCollider.sharedMesh = terrainMesh;
+            
             display.DrawMesh (MeshGenerator.GenerateTerrainMesh (noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
+            
         }
         else if (drawMode == DrawMode.FalloffMap)
         {
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(FalloffGenerator.GenerateFalloffMap(mapChunkSize, branchLength, fadeDistance)));
         }
+        
+        float minHeight = Mathf.Infinity;
+        float maxHeight = -Mathf.Infinity;
+        for (int y = 0; y < mapChunkSize; y++)
+        {
+            for (int x = 0; x < mapChunkSize; x++)
+            {
+                float height = noiseMap[x, y];
+                minHeight = Mathf.Min(minHeight, height);
+                maxHeight = Mathf.Max(maxHeight, height);
+            }
+        }
+        Debug.Log($"Height map range: Min: {minHeight}, Max: {maxHeight}");
     }
 
     void OnValidate()
