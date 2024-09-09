@@ -24,6 +24,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (enemyHP <= 0)
         {
+            GameManager.playerGold = GameManager.playerGold + 75;
             Destroy(this.gameObject);
         }
     }
@@ -41,6 +42,7 @@ public class EnemyManager : MonoBehaviour
         {
             enemyHP = enemyHP - 25;
             Destroy(other.gameObject);
+            
         }
     }
 }

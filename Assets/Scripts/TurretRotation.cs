@@ -10,10 +10,10 @@ public class TurretRotation : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    // void FixedUpdate()
-    // {
-    //     target = GameObject.FindGameObjectWithTag("Enemy1").transform;
-    //     transform.LookAt(target);
-    // }
+    //Update is called once per frame
+    void FixedUpdate()
+    {
+        target = GameObject.FindGameObjectWithTag("Enemy1").transform;
+        transform.LookAt(target);
+    }
 }

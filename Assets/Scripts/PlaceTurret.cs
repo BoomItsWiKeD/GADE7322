@@ -27,8 +27,9 @@ public class PlaceTurret : MonoBehaviour
             {
                 Debug.Log("x: " + hit.point.x + "\ny: " + hit.point.y + "\nz: " + hit.point.z);
 
-                if (hit.point.y >= 9 && hit.point.y <= 50) // Check if height is within the desired range
+                if (hit.point.y >= 9 && hit.point.y <= 50 && GameManager.playerGold >= 250) // Check if height is within the desired range
                 {
+                    GameManager.playerGold = GameManager.playerGold - 250;
                     Instantiate(objectToInstantiate, hit.point, Quaternion.identity); // Instantiate object at click pos
                 }
             }
