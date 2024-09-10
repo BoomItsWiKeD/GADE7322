@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = System.Random;
@@ -42,6 +43,7 @@ public class MapGenerator : MonoBehaviour
     private float[,] falloffMap;
 
     public GameObject meshGameObject;
+    public NavMeshSurface navSurface;
 
     private void Start()
     {
@@ -51,6 +53,9 @@ public class MapGenerator : MonoBehaviour
         
         //Generates map and mesh:
         GenerateMap();
+        
+        //Create navmesh:
+        navSurface.BuildNavMesh();
     }
 
     private void Awake()
@@ -98,30 +103,27 @@ public class MapGenerator : MonoBehaviour
             // Generate the terrain mesh
             MeshData meshData = MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail);
             Mesh terrainMesh = meshData.CreateMesh();
-
-            // Update the MeshFilter and MeshRenderer of the "Mesh" game object
             MeshFilter meshFilter = meshGameObject.GetComponent<MeshFilter>();
+            MeshRenderer meshRenderer = meshGameObject.GetComponent<MeshRenderer>();
+            MeshCollider meshCollider = meshGameObject.GetComponent<MeshCollider>();
+            
+            // Update the MeshFilter and MeshRenderer of the "Mesh" game object
             if (meshFilter == null)
             {
                 meshFilter = meshGameObject.AddComponent<MeshFilter>();
             }
             meshFilter.mesh = terrainMesh;
-
-            MeshRenderer meshRenderer = meshGameObject.GetComponent<MeshRenderer>();
             if (meshRenderer == null)
             {
                 meshRenderer = meshGameObject.AddComponent<MeshRenderer>();
             }
             meshRenderer.sharedMaterial.mainTexture = TextureGenerator.TextureFromColourMap(colourMap, mapChunkSize, mapChunkSize);
-
-            // Add or update the MeshCollider
-            MeshCollider meshCollider = meshGameObject.GetComponent<MeshCollider>();
             if (meshCollider == null)
             {
                 meshCollider = meshGameObject.AddComponent<MeshCollider>();
             }
-            meshCollider.sharedMesh = terrainMesh;
             
+            meshCollider.sharedMesh = terrainMesh;
             display.DrawMesh (MeshGenerator.GenerateTerrainMesh (noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
             
         }

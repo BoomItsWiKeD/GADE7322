@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = System.Random;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     public int enemyGoldValue;
     void Start()
     {
-        enemyHP = 50;
+        enemyHP = 50 + (5 * SpawnEnemy.wavesSpawned);
         enemyDMG = 5;
         enemyGoldValue = 25;
         agent.SetDestination(HQLocation.position);
@@ -22,9 +24,16 @@ public class EnemyManager : MonoBehaviour
     
     void Update()
     {
+        agent.speed = 40 + (SpawnEnemy.wavesSpawned * 5);
+
+        if (agent.speed > 250)
+        {
+            agent.speed = 250;
+        }
+        
         if (enemyHP <= 0)
         {
-            GameManager.playerGold = GameManager.playerGold + 75;
+            GameManager.playerGold = GameManager.playerGold + 30;
             Destroy(this.gameObject);
         }
     }
@@ -45,4 +54,16 @@ public class EnemyManager : MonoBehaviour
             
         }
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Missile")
+        {
+            enemyHP = enemyHP - 25;
+            Destroy(other.gameObject);
+            
+        }
+    }
+
+    
 }
