@@ -9,7 +9,7 @@ public class PlaceTurret : MonoBehaviour
     private RaycastHit hit;
 
     public GameObject objectToInstantiate;
-    public MapGenerator mapGenerator;
+    public MapBuilder mapGenerator;
     
     public float minHeight = 0.6f; // Minimum height for placing turrets
     public float maxHeight = 0.7f; // Maximum height for placing turrets
