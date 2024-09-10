@@ -43,7 +43,6 @@ public class EnemyManager : MonoBehaviour
         if (other.collider.tag == "HQ")
         {
             HQManager.hqHP = HQManager.hqHP - enemyDMG;
-            Debug.Log("" +HQManager.hqHP);
             Destroy(this.gameObject);
         }
 

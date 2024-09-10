@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void onPlayClick()
     {
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene("Caden_Test");
     }
 
     public void onExitClick()

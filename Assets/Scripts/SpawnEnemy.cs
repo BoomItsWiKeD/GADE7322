@@ -16,6 +16,7 @@ public class SpawnEnemy : MonoBehaviour
 
     void Start()
     {
+        wavesSpawned = 0;
         enemySpawnDelay = 1.5f;
         baseEnemyAmount = 5;
         SpawnWave();
