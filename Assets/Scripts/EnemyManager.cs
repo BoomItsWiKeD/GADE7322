@@ -125,8 +125,8 @@ public class EnemyManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        //When colliding with a tower's missile, deduct enemy HP and destroy the missile:
-        if (other.collider.tag == "Missile")
+        //When colliding with a specific tower's missile, deduct enemy HP and destroy the missile:
+        if (other.collider.tag == "Missile1")
         {
             if (this.gameObject.tag == "Enemy1")
             {
@@ -144,11 +144,8 @@ public class EnemyManager : MonoBehaviour
             
             Destroy(other.gameObject);
         }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Missile")
+        
+        if (other.collider.tag == "Missile2")
         {
             if (this.gameObject.tag == "Enemy1")
             {
@@ -165,7 +162,86 @@ public class EnemyManager : MonoBehaviour
             }
             
             Destroy(other.gameObject);
+        }
+        
+        if (other.collider.tag == "Missile3")
+        {
+            if (this.gameObject.tag == "Enemy1")
+            {
+                basicEnemyHP = basicEnemyHP - 35;
+            }
+
+            if (this.gameObject.tag == "Enemy2")
+            {
+                tankEnemyHP = tankEnemyHP - 35;
+            }
+            if (this.gameObject.tag == "Enemy3")
+            {
+                quickEnemyHP = quickEnemyHP - 35;
+            }
             
+            Destroy(other.gameObject);
+        }
+    }
+
+    //Making sure to really destroy the missile (uses "gameObject.tag" instead of "collider.tag"):
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Missile1")
+        {
+            if (this.gameObject.tag == "Enemy1")
+            {
+                basicEnemyHP = basicEnemyHP - 25;
+            }
+
+            if (this.gameObject.tag == "Enemy2")
+            {
+                tankEnemyHP = tankEnemyHP - 25;
+            }
+            if (this.gameObject.tag == "Enemy3")
+            {
+                quickEnemyHP = quickEnemyHP - 25;
+            }
+            
+            Destroy(other.gameObject);
+        }
+        
+        if (other.gameObject.tag == "Missile2")
+        {
+            if (this.gameObject.tag == "Enemy1")
+            {
+                basicEnemyHP = basicEnemyHP - 25;
+            }
+
+            if (this.gameObject.tag == "Enemy2")
+            {
+                tankEnemyHP = tankEnemyHP - 25;
+            }
+            if (this.gameObject.tag == "Enemy3")
+            {
+                quickEnemyHP = quickEnemyHP - 25;
+            }
+            
+            Destroy(other.gameObject);
+        }
+        
+        if (other.gameObject.tag == "Missile3")
+        {
+            if (this.gameObject.tag == "Enemy1")
+            {
+                basicEnemyHP = basicEnemyHP - 35;
+            }
+
+            if (this.gameObject.tag == "Enemy2")
+            {
+                tankEnemyHP = tankEnemyHP - 35;
+            }
+            if (this.gameObject.tag == "Enemy3")
+            {
+                quickEnemyHP = quickEnemyHP - 35;
+            }
+            
+            Destroy(other.gameObject);
         }
     }
 }

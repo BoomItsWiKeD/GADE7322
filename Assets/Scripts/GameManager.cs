@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     public Slider HQHPSlider;
     public GameObject pauseScreen;
     public GameObject deathScreen;
+
+    public static bool selectedTower1;
+    public static bool selectedTower2;
+    public static bool selectedTower3;
     
     // Start is called before the first frame update
     void Start()
@@ -56,5 +60,26 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    //When player presses button to buy and place turret:
+    //The variables here are used in "PlaceTurret.cs"
+    public void OnPlaceTower1Click()
+    {
+        selectedTower1 = true;
+        selectedTower2 = false;
+        selectedTower3 = false;
+    }
+    public void OnPlaceTower2Click()
+    {
+        selectedTower1 = false;
+        selectedTower2 = true;
+        selectedTower3 = false;
+    }
+    public void OnPlaceTower3Click()
+    {
+        selectedTower1 = false;
+        selectedTower2 = false;
+        selectedTower3 = true;
     }
 }
