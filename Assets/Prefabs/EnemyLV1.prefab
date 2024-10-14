@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.15, y: 1.1166201, z: -5.99}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2144814380469991217}
@@ -151,9 +151,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 6818343216254474070}
   HQLocation: {fileID: 7848021988903033910, guid: 6776d053f551329428037c7d7db6281d, type: 3}
-  enemyHP: 0
-  enemyDMG: 0
-  enemyGoldValue: 0
+  basicEnemyHP: 0
+  basicEnemyDMG: 0
+  basicEnemyGoldValue: 0
+  basicEnemySpeed: 0
+  tankEnemyHP: 0
+  tankEnemyDMG: 0
+  tankEnemyGoldValue: 0
+  tankEnemySpeed: 0
+  quickEnemyHP: 0
+  quickEnemyDMG: 0
+  quickEnemyGoldValue: 0
+  quickEnemySpeed: 0
 --- !u!195 &6818343216254474070
 NavMeshAgent:
   m_ObjectHideFlags: 0

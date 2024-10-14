@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+    public Transform target;
     public GameObject missile;
     public int missileSpeed;
     public float shootDelay;
@@ -20,14 +21,24 @@ public class Turret : MonoBehaviour
     {
         shootDelay -= Time.deltaTime;
     }
+    void FixedUpdate()
+    {
+        //Find enemy and look at enemy:
+        transform.LookAt(target);
+    }
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Enemy1" && shootDelay <= 0)
+        if (other.tag == "Enemy1" || other.tag == "Enemy2" || other.tag == "Enemy3")
         {
-            shootDelay = 1;
-            GameObject _projectile = Instantiate(missile, turretPos.transform.position, transform.rotation) as GameObject;
-            _projectile.GetComponent<Rigidbody>().AddForce(transform.forward * missileSpeed);
+            target = other.gameObject.transform;
+            if (shootDelay <= 0)
+            {
+                shootDelay = 1;
+                GameObject _projectile = Instantiate(missile, turretPos.transform.position, transform.rotation) as GameObject;
+                _projectile.GetComponent<Rigidbody>().AddForce(transform.forward * missileSpeed);
+            }
+            
         }
     }
 }

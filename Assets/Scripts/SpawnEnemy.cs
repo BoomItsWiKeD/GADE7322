@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     //Spawn positions for the enemies and transforms to store (x, y and z) positions:
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
     public Transform[] spawnPoints;
     public Transform currentSpawnPoint;
     
@@ -48,7 +48,9 @@ public class SpawnEnemy : MonoBehaviour
         {
             enemySpawnDelay = 1.5f;
             
-            Instantiate(enemyPrefab, currentSpawnPoint.transform.position, Quaternion.identity);
+            int randomEnemy = UnityEngine.Random.Range(0, 3);
+            
+            Instantiate(enemyPrefab[randomEnemy], currentSpawnPoint.transform.position, Quaternion.identity);
             enemiesToSpawn = enemiesToSpawn - 1;
         }
     }
