@@ -33,6 +33,7 @@ public class EnemyManager : MonoBehaviour
         basicEnemyHP = 1;
         tankEnemyHP = 1;
         quickEnemyHP = 1;
+        
         //Set default values and set agent destination:
         if (this.gameObject.tag == "Enemy1")
         {
@@ -56,7 +57,6 @@ public class EnemyManager : MonoBehaviour
             quickEnemySpeed = 60;
         }
         
-        
         agent.SetDestination(HQLocation.position);
     }
     
@@ -77,7 +77,6 @@ public class EnemyManager : MonoBehaviour
             agent.speed = quickEnemySpeed + (SpawnEnemy.wavesSpawned * 5);
         }
         
-
         //Limit for the enemy speed:
         if (agent.speed > 250)
         {
@@ -124,64 +123,6 @@ public class EnemyManager : MonoBehaviour
             
             Destroy(this.gameObject);
         }
-
-        //When colliding with a specific tower's missile, deduct enemy HP and destroy the missile:
-        if (other.collider.tag == "Missile1")
-        {
-            if (this.gameObject.tag == "Enemy1")
-            {
-                basicEnemyHP = basicEnemyHP - 25;
-            }
-
-            if (this.gameObject.tag == "Enemy2")
-            {
-                tankEnemyHP = tankEnemyHP - 25;
-            }
-            if (this.gameObject.tag == "Enemy3")
-            {
-                quickEnemyHP = quickEnemyHP - 25;
-            }
-            
-            Destroy(other.gameObject);
-        }
-        
-        if (other.collider.tag == "Missile2")
-        {
-            if (this.gameObject.tag == "Enemy1")
-            {
-                basicEnemyHP = basicEnemyHP - 25;
-            }
-
-            if (this.gameObject.tag == "Enemy2")
-            {
-                tankEnemyHP = tankEnemyHP - 25;
-            }
-            if (this.gameObject.tag == "Enemy3")
-            {
-                quickEnemyHP = quickEnemyHP - 25;
-            }
-            
-            Destroy(other.gameObject);
-        }
-        
-        if (other.collider.tag == "Missile3")
-        {
-            if (this.gameObject.tag == "Enemy1")
-            {
-                basicEnemyHP = basicEnemyHP - 35;
-            }
-
-            if (this.gameObject.tag == "Enemy2")
-            {
-                tankEnemyHP = tankEnemyHP - 35;
-            }
-            if (this.gameObject.tag == "Enemy3")
-            {
-                quickEnemyHP = quickEnemyHP - 35;
-            }
-            
-            Destroy(other.gameObject);
-        }
     }
 
     //Making sure to really destroy the missile (uses "gameObject.tag" instead of "collider.tag"):
@@ -191,16 +132,16 @@ public class EnemyManager : MonoBehaviour
         {
             if (this.gameObject.tag == "Enemy1")
             {
-                basicEnemyHP = basicEnemyHP - 25;
+                basicEnemyHP = basicEnemyHP - 40;
             }
 
             if (this.gameObject.tag == "Enemy2")
             {
-                tankEnemyHP = tankEnemyHP - 25;
+                tankEnemyHP = tankEnemyHP - 40;
             }
             if (this.gameObject.tag == "Enemy3")
             {
-                quickEnemyHP = quickEnemyHP - 25;
+                quickEnemyHP = quickEnemyHP - 40;
             }
             
             Destroy(other.gameObject);
@@ -210,16 +151,16 @@ public class EnemyManager : MonoBehaviour
         {
             if (this.gameObject.tag == "Enemy1")
             {
-                basicEnemyHP = basicEnemyHP - 25;
+                basicEnemyHP = basicEnemyHP - 30;
             }
 
             if (this.gameObject.tag == "Enemy2")
             {
-                tankEnemyHP = tankEnemyHP - 25;
+                tankEnemyHP = tankEnemyHP - 30;
             }
             if (this.gameObject.tag == "Enemy3")
             {
-                quickEnemyHP = quickEnemyHP - 25;
+                quickEnemyHP = quickEnemyHP - 30;
             }
             
             Destroy(other.gameObject);
@@ -229,16 +170,16 @@ public class EnemyManager : MonoBehaviour
         {
             if (this.gameObject.tag == "Enemy1")
             {
-                basicEnemyHP = basicEnemyHP - 35;
+                basicEnemyHP = basicEnemyHP - 100;
             }
 
             if (this.gameObject.tag == "Enemy2")
             {
-                tankEnemyHP = tankEnemyHP - 35;
+                tankEnemyHP = tankEnemyHP - 100;
             }
             if (this.gameObject.tag == "Enemy3")
             {
-                quickEnemyHP = quickEnemyHP - 35;
+                quickEnemyHP = quickEnemyHP - 100;
             }
             
             Destroy(other.gameObject);

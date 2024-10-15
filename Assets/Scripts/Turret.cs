@@ -38,13 +38,9 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        shootDelay -= Time.deltaTime;
-    }
-    
-    void FixedUpdate()
-    {
         //Find enemy and look at enemy:
         transform.LookAt(target);
+        shootDelay -= Time.deltaTime;
     }
 
     public void OnTriggerStay(Collider other)
@@ -52,6 +48,8 @@ public class Turret : MonoBehaviour
         if (other.tag == "Enemy1" || other.tag == "Enemy2" || other.tag == "Enemy3")
         {
             target = other.gameObject.transform;
+            transform.LookAt(target);
+            
             if (shootDelay <= 0)
             {
                 if (this.gameObject.tag == "Tower1") //Normal tower

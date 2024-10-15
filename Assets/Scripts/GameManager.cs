@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text goldText;
     public TMP_Text waveCounterText;
     public TMP_Text statsText;
+    public TMP_Text selectedTowerText;
     public Slider HQHPSlider;
     public GameObject pauseScreen;
     public GameObject deathScreen;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        selectedTowerText.text = "No Turret Selected";
         playerGold = 500;
     }
 
@@ -69,17 +71,20 @@ public class GameManager : MonoBehaviour
         selectedTower1 = true;
         selectedTower2 = false;
         selectedTower3 = false;
+        selectedTowerText.text = "Normal Turret Selected";
     }
     public void OnPlaceTower2Click()
     {
         selectedTower1 = false;
         selectedTower2 = true;
         selectedTower3 = false;
+        selectedTowerText.text = "Quick Turret Selected";
     }
     public void OnPlaceTower3Click()
     {
         selectedTower1 = false;
         selectedTower2 = false;
         selectedTower3 = true;
+        selectedTowerText.text = "Heavy Turret Selected";
     }
 }

@@ -68,9 +68,42 @@ public class SpawnEnemy : MonoBehaviour
         
         //Random spawn for wave:
         int num = UnityEngine.Random.Range(0, 4);
-        
         //Current wave spawn point:
         currentSpawnPoint = spawnPoints[num];
+
+        if (num == 0) //Top spawn
+        {
+            //Random spawn point to be moved along Z:
+            int transformSpawnNum = Random.Range(-968, 1251);
+
+            currentSpawnPoint.position =
+                new Vector3(currentSpawnPoint.position.x, currentSpawnPoint.position.y, transformSpawnNum);
+
+        }
+        if (num == 1) //Left spawn
+        {
+            //Random spawn point to be moved along X:
+            int transformSpawnNum = Random.Range(-1268, 938);
+            
+            currentSpawnPoint.position =
+                new Vector3(transformSpawnNum, currentSpawnPoint.position.y, currentSpawnPoint.position.z);
+        }
+        if (num == 2) //Right spawn
+        {
+            //Random spawn point to be moved along X:
+            int transformSpawnNum = Random.Range(-1243, 967);
+            
+            currentSpawnPoint.position =
+                new Vector3(transformSpawnNum, currentSpawnPoint.position.y, currentSpawnPoint.position.z);
+        }
+        if (num == 3) //Bottom spawn
+        {
+            //Random spawn point to be moved along Z:
+            int transformSpawnNum = Random.Range(-943, 1235);
+            
+            currentSpawnPoint.position =
+                new Vector3(currentSpawnPoint.position.x, currentSpawnPoint.position.y, transformSpawnNum);
+        }
 
         //For difficulty increase:
         enemiesToSpawn = baseEnemyAmount + wavesSpawned;
