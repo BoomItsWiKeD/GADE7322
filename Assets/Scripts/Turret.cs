@@ -16,22 +16,30 @@ public class Turret : MonoBehaviour
     public GameObject turretPos;
 
     private string nameOfTurretObject;
+
+    public static float health1;
+    public static float health2;
+    public static float health3;
+
+    public static float shootDelay1;
+    public static float shootDelay2;
+    public static float shootDelay3;
     
     // Start is called before the first frame update
     void Start()
     {
-        //Changing the shoot delay for each tower:
+        //Changing the shoot delay and health for each tower:
         if (this.gameObject.tag == "Tower1") //Normal tower
         {
-            shootDelay = 1;
+            shootDelay = shootDelay1;
         }
         if (this.gameObject.tag == "Tower2") //Fast tower
         {
-            shootDelay = 0.5f;
+            shootDelay = shootDelay2;
         }
         if (this.gameObject.tag == "Tower3") //Heavy tower
         {
-            shootDelay = 3;
+            shootDelay = shootDelay3;
         }
     }
 
@@ -54,19 +62,19 @@ public class Turret : MonoBehaviour
             {
                 if (this.gameObject.tag == "Tower1") //Normal tower
                 {
-                    shootDelay = 1;
+                    shootDelay = shootDelay1;
                     GameObject _projectile = Instantiate(missile1, turretPos.transform.position, transform.rotation) as GameObject;
                     _projectile.GetComponent<Rigidbody>().AddForce(transform.forward * missileSpeed);
                 }
                 if (this.gameObject.tag == "Tower2") //Fast tower
                 {
-                    shootDelay = 0.5f;
+                    shootDelay = shootDelay2;
                     GameObject _projectile = Instantiate(missile2, turretPos.transform.position, transform.rotation) as GameObject;
                     _projectile.GetComponent<Rigidbody>().AddForce(transform.forward * missileSpeed);
                 }
                 if (this.gameObject.tag == "Tower3") //Heavy tower
                 {
-                    shootDelay = 3;
+                    shootDelay = shootDelay3;
                     GameObject _projectile = Instantiate(missile3, turretPos.transform.position, transform.rotation) as GameObject;
                     _projectile.GetComponent<Rigidbody>().AddForce(transform.forward * missileSpeed);
                 }
