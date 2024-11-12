@@ -124,8 +124,8 @@ public class GameManager : MonoBehaviour
             Turret.health1 += 20;
             Turret.health2 += 20;
             Turret.health3 += 20;
-            
-            healthLvl = 0;
+
+            healthLvl += 1;
             healthLvlText.text = healthLvl.ToString();
         }
         
@@ -137,11 +137,11 @@ public class GameManager : MonoBehaviour
         {
             GameManager.playerGold = GameManager.playerGold - 1500;
             
-            EnemyManager.missile1DMG += 10;
-            EnemyManager.missile2DMG += 10;
-            EnemyManager.missile3DMG += 10;
+            EnemyManager.missile1DMG += 30;
+            EnemyManager.missile2DMG += 20;
+            EnemyManager.missile3DMG += 50;
             
-            attackLvl = 0;
+            attackLvl += 1;
             attackLvlText.text = attackLvl.ToString();
         }
     }
@@ -152,11 +152,11 @@ public class GameManager : MonoBehaviour
         {
             GameManager.playerGold = GameManager.playerGold - 2000;
             
-            Turret.shootDelay1 -= 0.05f;
-            Turret.shootDelay2 -= 0.05f;
-            Turret.shootDelay3 -= 0.05f;
+            Turret.shootDelay1 -= 0.25f;
+            Turret.shootDelay2 -= 0.15f;
+            Turret.shootDelay3 -= 0.4f;
             
-            attackSpeedLvl = 0;
+            attackSpeedLvl += 1;
             attackSpeedLvlText.text = attackSpeedLvl.ToString();
             
             //0.1 is fastest shoot delay:

@@ -8,6 +8,11 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject[] enemyPrefab;
     public Transform[] spawnPoints;
     public Transform currentSpawnPoint;
+
+    public AudioSource earlyMusic;
+    public AudioSource midMusic;
+    public AudioSource lateMusic;
+    
     
     //Number of enemies variables:
     public int enemiesToSpawn;
@@ -65,6 +70,18 @@ public class SpawnEnemy : MonoBehaviour
             enemySpawnDelay = 1;
         }
         wavesSpawned++;
+
+        if (wavesSpawned == 10)
+        {
+            earlyMusic.Stop();
+            midMusic.Play();
+        }
+
+        if (wavesSpawned == 20)
+        {
+            midMusic.Stop();
+            lateMusic.Play();
+        }
         
         //Random spawn for wave:
         int num = UnityEngine.Random.Range(0, 4);
