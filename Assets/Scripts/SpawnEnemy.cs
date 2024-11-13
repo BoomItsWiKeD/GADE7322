@@ -65,12 +65,14 @@ public class SpawnEnemy : MonoBehaviour
     {
         enemyWaveDelay = 30f - wavesSpawned;
 
-        if (enemyWaveDelay <= 0)
+        if (enemyWaveDelay <= 1)
         {
+            enemyWaveDelay = 1;
             enemySpawnDelay = 1;
         }
         wavesSpawned++;
 
+        //changes music based on wave
         if (wavesSpawned == 10)
         {
             earlyMusic.Stop();

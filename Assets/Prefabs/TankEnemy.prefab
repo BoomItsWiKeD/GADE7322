@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 3567247701183491181}
   HQLocation: {fileID: 7848021988903033910, guid: 6776d053f551329428037c7d7db6281d, type: 3}
+  explosion: {fileID: 1496790123807029911, guid: 92fbc13d0d5292947854b7997a859a8f, type: 3}
   basicEnemyHP: 0
   basicEnemyDMG: 0
   basicEnemyGoldValue: 0

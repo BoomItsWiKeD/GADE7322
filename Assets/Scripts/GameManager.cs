@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Slider HQHPSlider;
     public GameObject pauseScreen;
     public GameObject deathScreen;
+    public AudioSource HQExplosion;
 
     public static bool selectedTower1;
     public static bool selectedTower2;
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
         waveCounterText.text = "Wave: " + SpawnEnemy.wavesSpawned;
         if (HQManager.hqHP <= 0)
         {
+            
             Time.timeScale = 0;
             statsText.text = "You survived " + SpawnEnemy.wavesSpawned + " waves";
             deathScreen.SetActive(true);

@@ -11,6 +11,9 @@ public class EnemyManager : MonoBehaviour
     //NavMeshAgent variables:
     public NavMeshAgent agent;
     public Transform HQLocation;
+
+    public ParticleSystem explosion;
+    public Transform explosionLocation;
     
     //Enemy variables:
     public int basicEnemyHP;
@@ -91,17 +94,20 @@ public class EnemyManager : MonoBehaviour
         if (basicEnemyHP <= 0)
         {
             GameManager.playerGold = GameManager.playerGold + basicEnemyGoldValue;
+            Instantiate(explosion, this.transform.position, this.transform.rotation);
             Destroy(this.gameObject);
         }
 
         if (tankEnemyHP <= 0)
         {
             GameManager.playerGold = GameManager.playerGold + tankEnemyGoldValue;
+            Instantiate(explosion, this.transform.position, this.transform.rotation);
             Destroy(this.gameObject);
         }
         if (quickEnemyHP <= 0)
         {
             GameManager.playerGold = GameManager.playerGold + quickEnemyGoldValue;
+            Instantiate(explosion, this.transform.position, this.transform.rotation);
             Destroy(this.gameObject);
         }
     }
@@ -124,7 +130,7 @@ public class EnemyManager : MonoBehaviour
             {
                 HQManager.hqHP = HQManager.hqHP - quickEnemyDMG;
             }
-            
+            Instantiate(explosion, this.transform.position, this.transform.rotation);
             Destroy(this.gameObject);
         }
     }
